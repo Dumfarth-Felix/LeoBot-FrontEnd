@@ -4,6 +4,15 @@ p {
   margin-block-end: 0;
   margin-left: 10px;
 }
+
+h1{
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: white;
+  font-size:44px;
+  float: right;
+  padding: 2vh 0 0 5vh;
+  margin: 0;
+}
 #chat {
   box-sizing: border-box;
   overflow-y: scroll;
@@ -13,7 +22,7 @@ p {
   flex-direction: column;
   padding: 10px;
   max-height: 100vh;
-  height: 90vh;
+  height: 80vh;
 }
 
 .messages {
@@ -71,7 +80,7 @@ p {
 
 .mine .message {
   color: white;
-  margin-left: 25%;
+  margin-right: 25%;
   background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
   background-attachment: fixed;
   position: relative;
@@ -133,4 +142,21 @@ div#input:focus {
   padding-bottom: 1vh;
   margin: auto;
   width: 80%;
+}
+
+#banner{
+  background: rgb(188,17,39);
+  background: linear-gradient(169deg, rgba(188,17,39,1) 0%, rgba(250,212,3,1) 100%);
+  width: 80%;
+  border-radius: 30px;
+  padding: 2vh;
+}
+
+#iconName{
+  width: -webkit-fit-content;
+  width: fit-content;
+}
+#name{
+  border-radius: 100px;
+  padding: 2vh 0 0 5vh;
 }

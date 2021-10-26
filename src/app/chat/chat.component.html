@@ -1,24 +1,23 @@
 <div id="chat">
   <div class="others messages">
-    <img src="assets/leon.png" height="100px" style="border-radius: 100px;">
-    <p>Leon</p>
+    <div id="banner">
+      <div id="iconName">
+        <img src="assets/leon.png" height="80px">
+        <h1>Leon</h1>
+      </div>
+    </div>
     <div class="message">
       Hallo😄 <br>Ich bin Leon🤖 <br> Wie kann ich dir helfen?
     </div>
   </div>
 
-    <div class="mine messages">
-      <div class="message">
-        Was ist die HTL Leonding?
-      </div>
-    </div>
-
-  <div *ngFor="let message of messages" [ngClass]="{'mine':message.from == 'me','others':message.from == 'bot'}" class="mine messages">
+  <div *ngFor="let message of messages" [ngClass]="{'mine':message.from == 'me','others':message.from == 'bot'}"
+       class="mine messages">
     <div class="message">
       {{message.text}}
     </div>
   </div>
-  </div>
+</div>
 <div id="inputDiv">
   <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text"></div>
   <div id="send" (click)="sendMessage()">

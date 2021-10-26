@@ -9,7 +9,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ChatComponent implements OnInit {
   text: any;
-  public url = 'http://localhost:5002';
+  public url = 'http://localhost:5005';
   public operator;
   public messages = [];
   public response: any;
@@ -35,9 +35,14 @@ export class ChatComponent implements OnInit {
   sendMessage(): void {
     this.addMessage('me', this.text, 'sent');
     // this.chatService.sendMessage(this.text);
-    this.response = this.http.post<[{text: string}]>('http://localhost:5002/webhooks/rest/webhook',
+    this.response = this.http.post<[{
+      text: string}, {image: string}]>('http://localhost:5005/webhooks/rest/webhook',
       {sender: 'me', message: this.text}).subscribe(data => {
       this.addMessage('bot', data[0].text, 'received');
+      if (data[1].image) {
+        this.addMessage('bot', '<img src="' + data[1].image + '">', 'received');
+      }
     });
+    this.text = '';
   }
 }
