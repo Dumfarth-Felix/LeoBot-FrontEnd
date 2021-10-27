@@ -61,7 +61,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "chatbot-frontend:build"
+            "browserTarget": "chatbot-frontend:build",
+            "port": 80
           },
           "configurations": {
             "production": {

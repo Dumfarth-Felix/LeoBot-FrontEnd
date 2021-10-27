@@ -33,16 +33,23 @@ export class ChatComponent implements OnInit {
     this.messages.push({from, text});
   }
   sendMessage(): void {
-    this.addMessage('me', this.text, 'sent');
-    // this.chatService.sendMessage(this.text);
-    this.response = this.http.post<[{
-      text: string}, {image: string}]>('http://localhost:5005/webhooks/rest/webhook',
-      {sender: 'me', message: this.text}).subscribe(data => {
-      this.addMessage('bot', data[0].text, 'received');
-      if (data[1].image) {
-        this.addMessage('bot', '<img src="' + data[1].image + '">', 'received');
-      }
-    });
-    this.text = '';
+    if (this.text.replace(/\s/g, '').length){
+      this.addMessage('me', this.text.trim(), 'sent');
+      // this.chatService.sendMessage(this.text);
+      this.response = this.http.post<[{
+        text: string}, {image: string}]>('http://localhost:5005/webhooks/rest/webhook',
+        {sender: 'me', message: this.text.trim()}).subscribe(data => {
+        this.addMessage('bot', data[0].text, 'received');
+        if (data[1].image) {
+          this.addMessage('bot', '<img src="' + data[1].image + '">', 'received');
+        }
+      });
+      this.text = '';
+    }
+  }
+
+  enter($event: any): void {
+    $event.preventDefault();
+    this.sendMessage();
   }
 }

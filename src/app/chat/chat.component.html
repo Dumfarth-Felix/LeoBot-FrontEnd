@@ -1,11 +1,11 @@
+<div id="banner">
+  <div id="iconName">
+    <img src="assets/leon.png" height="80px">
+    <h1>Leon</h1>
+  </div>
+</div>
 <div id="chat">
   <div class="others messages">
-    <div id="banner">
-      <div id="iconName">
-        <img src="assets/leon.png" height="80px">
-        <h1>Leon</h1>
-      </div>
-    </div>
     <div class="message">
       Hallo😄 <br>Ich bin Leon🤖 <br> Wie kann ich dir helfen?
     </div>
@@ -19,10 +19,10 @@
   </div>
 </div>
 <div id="inputDiv">
-  <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text"></div>
+  <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text" (keyup.enter)="enter($event)"></div>
   <div id="send" (click)="sendMessage()">
     <svg id="sendIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="#263238" fill-opacity=".45"
+      <path fill="red" fill-opacity=".75"
             d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
     </svg>
   </div>
