@@ -5,14 +5,15 @@ p {
   margin-left: 10px;
 }
 
-h1{
+h1 {
   font-family: 'IBM Plex Sans', sans-serif;
   color: white;
-  font-size:44px;
+  font-size: 44px;
   float: right;
   padding: 2vh 0 0 5vh;
   margin: 0;
 }
+
 #chat {
   box-sizing: border-box;
   overflow-y: scroll;
@@ -80,7 +81,7 @@ h1{
 
 .mine .message {
   color: white;
-  background: linear-gradient(169deg, rgba(188,17,39,1) 0%, rgba(250,212,3,1) 100%);
+  background: linear-gradient(169deg, rgba(188, 17, 39, 1) 0%, rgba(250, 212, 3, 1) 100%);
   background-attachment: fixed;
   position: relative;
 }
@@ -93,7 +94,7 @@ h1{
   right: -8px;
   height: 20px;
   width: 20px;
-  background: linear-gradient(169deg, rgba(188,17,39,1) 0%, rgba(250,212,3,1) 100%);;
+  background: linear-gradient(169deg, rgba(188, 17, 39, 1) 0%, rgba(250, 212, 3, 1) 100%);;
   background-attachment: fixed;
   border-bottom-left-radius: 15px;
 }
@@ -143,20 +144,21 @@ div#input:focus {
   width: 50%;
 }
 
-#banner{
-  background: rgb(188,17,39);
-  background: linear-gradient(169deg, rgba(188,17,39,1) 0%, rgba(250,212,3,1) 100%);
+#banner {
+  background: rgb(188, 17, 39);
+  background: linear-gradient(169deg, rgba(188, 17, 39, 1) 0%, rgba(250, 212, 3, 1) 100%);
   width: 50%;
   border-radius: 30px;
   padding: 2vh;
   margin: auto;
 }
 
-#iconName{
+#iconName {
   width: -webkit-fit-content;
   width: fit-content;
 }
-#name{
+
+#name {
   border-radius: 100px;
   padding: 2vh 0 0 5vh;
 }

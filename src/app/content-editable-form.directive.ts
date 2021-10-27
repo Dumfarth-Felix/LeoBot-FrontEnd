@@ -9,14 +9,14 @@ import {
   HostBinding
 } from '@angular/core';
 
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: '[contenteditable]',
   providers:
     [
-      { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ContentEditableFormDirective), multi: true }
+      {provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => ContentEditableFormDirective), multi: true}
     ]
 })
 export class ContentEditableFormDirective implements ControlValueAccessor {
@@ -26,7 +26,8 @@ export class ContentEditableFormDirective implements ControlValueAccessor {
   private onTouched: () => void;
   private removeDisabledState: () => void;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+  }
 
   @HostListener('input') onInput(): void {
     this.onChange(this.elementRef.nativeElement.innerText);

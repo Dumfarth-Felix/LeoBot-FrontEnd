@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import io from 'socket.io-client';
 import {Observable} from 'rxjs';
 
@@ -13,7 +13,7 @@ export class ChatService {
 
   }
 
-  public connect(url: string): void{
+  public connect(url: string): void {
     this.socket = io(url);
     this.socket.on('connect', () => {
       this.socket.emit('session_request', {session_id: this.socket.id});
