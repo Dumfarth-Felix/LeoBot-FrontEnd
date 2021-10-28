@@ -4,17 +4,22 @@
     <h1>Leon</h1>
   </div>
 </div>
-<div id="chat">
+<div id="chat"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
   <div class="others messages">
-    <div class="message">
+    <div class="message tri-left">
       Hallo😄 <br>Ich bin Leon🤖 <br> Wie kann ich dir helfen?
+    </div>
+    <div class="buttons" style="display:flex; flex-direction: row">
+      <div (click)="sendMessageButton('Medientechnik')" class="button">Medientechnik</div><div class="button" (click)="sendMessageButton('Informatik')">Informatik</div>
     </div>
   </div>
 
   <div *ngFor="let message of messages" [ngClass]="{'mine':message.from == 'me','others':message.from == 'bot'}"
        class="mine messages">
-    <div class="message">
-      {{message.text}}
+    <div class="message" [ngSwitch]="message.messageType" [ngClass]="{'tri-right':message.from == 'me','tri-left':message.from == 'bot'}">
+      <div *ngSwitchCase="'text'">{{message.text}}</div>
+      <img *ngSwitchCase="'image'" src="{{message.text}}" alt="BILD" class="messageImg">
+      <div *ngSwitchCase="'button'" (click)="sendMessageButton(message.text)" class="button">{{message.text}}</div>
     </div>
   </div>
 </div>
@@ -23,7 +28,7 @@
        (keyup.enter)="enter($event)"></div>
   <div id="send" (click)="sendMessage()">
     <svg id="sendIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path fill="red" fill-opacity=".75"
+      <path fill="rgba(188, 17, 39, 1)" fill-opacity="1"
             d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
     </svg>
   </div>

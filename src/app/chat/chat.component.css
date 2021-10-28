@@ -26,15 +26,30 @@ h1 {
   height: 70vh;
 }
 
+.button{
+  font-family: 'IBM Plex Sans', sans-serif;
+  border-radius: 15px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-left: 10px;
+  background-color: #ececec;
+  position: relative;
+  cursor: pointer;
+}
+.button:hover{
+  background-color: #bebebe;
+}
+
 .messages {
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
 }
 
 .message {
   font-family: 'IBM Plex Sans', sans-serif;
-  border-radius: 20px;
+  border-radius: 15px;
   padding: 8px 15px;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -47,6 +62,7 @@ h1 {
 
 .others .message {
   margin-right: 25%;
+  margin-left: 10px;
   background-color: #eee;
   position: relative;
 }
@@ -75,15 +91,71 @@ h1 {
   border-bottom-right-radius: 10px;
 }
 
+/* Right triangle placed top left flush. */
+.tri-left.border:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -40px;
+  right: auto;
+  top: -8px;
+  bottom: auto;
+  border: 32px solid;
+  border-color: #eee transparent transparent transparent;
+}
+.tri-left:after{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -9px;
+  right: auto;
+  top: 0px;
+  bottom: auto;
+  border: 12px solid;
+  border-color: #eee transparent transparent transparent;
+}
+
+/* Right triangle placed top right flush. */
+.tri-right.border:before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: -40px;
+  left: auto;
+  top: -8px;
+  bottom: auto;
+  border: 32px solid;
+  border-color:  rgba(188, 17, 39, 1) transparent transparent transparent;
+}
+.tri-right:after{
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  right: -10px;
+  left: auto;
+  top: 0px;
+  bottom: auto;
+  border: 10px solid;
+  border-color:  rgba(188, 17, 39, 1) transparent transparent transparent;
+}
+
 .mine {
+  margin-top: 30px;
+  margin-bottom: 25px;
   align-items: flex-end;
 }
 
 .mine .message {
+  margin-right: 10px;
   color: white;
-  background: linear-gradient(169deg, rgba(188, 17, 39, 1) 0%, rgba(250, 212, 3, 1) 100%);
+  background:  rgba(188, 17, 39, 1);
   background-attachment: fixed;
   position: relative;
+  border-radius: 15px 0 15px 15px;
 }
 
 .mine .message.last:before {
@@ -94,7 +166,7 @@ h1 {
   right: -8px;
   height: 20px;
   width: 20px;
-  background: linear-gradient(169deg, rgba(188, 17, 39, 1) 0%, rgba(250, 212, 3, 1) 100%);;
+  background:  rgba(188, 17, 39, 1);
   background-attachment: fixed;
   border-bottom-left-radius: 15px;
 }
@@ -161,4 +233,9 @@ div#input:focus {
 #name {
   border-radius: 100px;
   padding: 2vh 0 0 5vh;
+}
+
+.messageImg{
+  max-width: 300px;
+  border-radius: 10px;
 }

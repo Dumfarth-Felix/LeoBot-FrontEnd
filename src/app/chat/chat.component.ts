@@ -13,6 +13,7 @@ export class ChatComponent implements OnInit {
   public operator;
   public messages = [];
   public response: any;
+  public sender = 'FE-S-' + Date.now();
 
   private chatService: ChatService;
 
@@ -22,31 +23,51 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chatService
-      .getMessages()
-      .subscribe((message) => {
-        setTimeout(() => {
-          this.addMessage('bot', message.text, 'received');
-        }, 1000);
-      });
   }
 
-  public addMessage(from, text, type: 'received' | 'sent'): void {
-    this.messages.push({from, text});
+  public addMessage(from, text, type: 'received' | 'sent', messageType): void {
+    this.messages.push({from, text, messageType});
   }
 
   sendMessage(): void {
     if (this.text.replace(/\s/g, '').length) {
-      this.addMessage('me', this.text.trim(), 'sent');
+      this.addMessage('me', this.text.trim(), 'sent', 'text');
       // this.chatService.sendMessage(this.text);
       this.response = this.http.post<[{
         text: string
-      }, { image: string }]>('http://localhost:5005/webhooks/rest/webhook',
-        {sender: 'me', message: this.text.trim()}).subscribe(data => {
-        this.addMessage('bot', data[0].text, 'received');
-        if (data[1].image) {
-          this.addMessage('bot', '<img src="' + data[1].image + '">', 'received');
-        }
+      }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
+        {sender: this.sender, message: this.text.trim()}).subscribe(data => {
+        // this.addMessage('bot', data[0].text, 'received');
+        console.log(data);
+        data.forEach(value => {
+          for (const dataKey in value) {
+            if (value.hasOwnProperty(dataKey)) {
+              console.log(dataKey);
+              if (dataKey !== 'recipient_id') {
+                this.addMessage('bot', value[dataKey], 'received', dataKey);
+              }
+            }
+          }
+        });
+      });
+      this.text = '';
+    }
+  }
+  sendMessageButton(text): void {
+    if (text.replace(/\s/g, '').length) {
+      this.addMessage('me', text.trim(), 'sent', 'text');
+      // this.chatService.sendMessage(this.text);
+      this.response = this.http.post<any>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
+        {sender: this.sender, message: text.trim()}).subscribe(data => {
+        data.forEach(value => {
+          for (const dataKey in value) {
+            if (value.hasOwnProperty(dataKey)) {
+              if (dataKey !== 'recipient_id') {
+                this.addMessage('bot', value[dataKey], 'received', dataKey);
+              }
+            }
+          }
+        });
       });
       this.text = '';
     }
