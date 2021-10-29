@@ -1,17 +1,20 @@
 <div id="banner">
   <div id="iconName">
     <img src="assets/leon.png" height="80px">
+    <span (click)="reload()" class=reload>↻</span>
     <h1>Leon</h1>
   </div>
+</div>
+<div id="chatleft">
+  <p></p>
 </div>
 <div id="chat"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
   <div class="others messages">
     <div class="message tri-left">
-      Hallo😄 <br>Ich bin Leon🤖 <br> Wie kann ich dir helfen?
+      Hallo😄 <br>Ich bin Leon🤖 <br> Ich kann dir Auskünfte geben über die HTL z.B.:
     </div>
-    <div class="buttons" style="display:flex; flex-direction: row">
-      <div (click)="sendMessageButton('Medientechnik')" class="button">Medientechnik</div><div class="button" (click)="sendMessageButton('Informatik')">Informatik</div>
-    </div>
+      <div (click)="sendMessageButton('Was ist die HTL Leonding?')" class="button">Was ist die HTL Leonding?</div>
+      <div class="button" (click)="sendMessageButton('Erzähl mir was über Medientechnik?')">Erzähl mir was über Medientechnik</div>
   </div>
 
   <div *ngFor="let message of messages" [ngClass]="{'mine':message.from == 'me','others':message.from == 'bot'}"
@@ -23,11 +26,13 @@
     </div>
   </div>
 </div>
+<div id="chatright"><p>Nach einer Minute Inaktivität wird der Chat zurückgesetzt!</p></div>
+
 <div id="inputDiv">
   <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text"
        (keyup.enter)="enter($event)"></div>
   <div id="send" (click)="sendMessage()">
-    <svg id="sendIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+    <svg id="sendIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="8%" height="24">
       <path fill="rgba(188, 17, 39, 1)" fill-opacity="1"
             d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
     </svg>
