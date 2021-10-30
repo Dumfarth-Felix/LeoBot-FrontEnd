@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
   public display ;
   private interval;
   private minutes: number;
-  private seconds: number;
+  public seconds = 0;
   constructor(private http: HttpClient, chatService: ChatService) {
     // this.chatService = chatService;
     // this.chatService.connect(this.url);

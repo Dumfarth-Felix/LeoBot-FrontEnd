@@ -1,3 +1,31 @@
+@media screen and (max-width:500px) {
+ #banner{
+   width: 100% !important;
+   border-radius: 0 !important;
+
+ }
+
+  #chatleft{
+    width: 0 !important;
+  }
+
+  #chatright{
+    display: none;
+  }
+
+  #chat{
+    width: 100% !important;
+  }
+
+  #inputDiv{
+    width: 90% !important;
+  }
+
+  #sendIcon{
+    height: 30px !important;
+  }
+}
+
 p {
   font-size: 18px;
   font-family: 'IBM Plex Sans', sans-serif;
@@ -64,7 +92,7 @@ h1 {
  margin-bottom: 5px;
  display: inline-block;
  margin-left: 10px;
- background-color: #ececec;
+ background-color: #e3e3e3;
  position: relative;
  cursor: pointer;
 }
