@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, LOCALE_ID, Inject, OnInit} from '@angular/core';
 import {ChatService} from '../chatbot-rasa.service';
 import {HttpClient} from '@angular/common/http';
+import {formatNumber, registerLocaleData} from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -13,14 +14,16 @@ export class ChatComponent implements OnInit {
   public operator;
   public messages = [];
   public response: any;
+  public secondsPassed = 0;
   public sender = 'FE-S-' + Date.now();
   private chatService: ChatService;
   private time = 0;
+  public resetMinutes = 1;
   public display ;
   private interval;
   private minutes: number;
   public seconds = 0;
-  constructor(private http: HttpClient, chatService: ChatService) {
+  constructor(private http: HttpClient, chatService: ChatService, @Inject(LOCALE_ID) public locale: string) {
     // this.chatService = chatService;
     // this.chatService.connect(this.url);
   }
@@ -37,30 +40,43 @@ export class ChatComponent implements OnInit {
       this.pauseTimer();
       this.startTimer();
       this.addMessage('me', this.text.trim(), 'sent', 'text');
-      // this.chatService.sendMessage(this.text);
-      this.response = this.http.post<[{
-        text: string
-      }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
-        {sender: this.sender, message: this.text.trim()}).subscribe(data => {
-        // this.addMessage('bot', data[0].text, 'received');
-        console.log(data);
-        data.forEach(value => {
-          for (const dataKey in value) {
-            if (value.hasOwnProperty(dataKey)) {
-              console.log(dataKey);
-              if (dataKey !== 'recipient_id') {
-                this.addMessage('bot', value[dataKey], 'received', dataKey);
-                if (dataKey === 'text'){
-                  if (value[dataKey] === 'Tschüss'){
-                    this.reload();
+      if (this.text.startsWith('/resetTime')) {
+        if (Number(this.text.split(' ')[1]) > 0) {
+          this.resetMinutes = Number(formatNumber(this.text.split(' ')[1], this.locale, '1.0-0'));
+          this.addMessage('bot', 'Ich werde mich nun nach genau ' + this.resetMinutes + ' min immer resetten', 'received', 'text');
+          this.text = '';
+        } else {
+          this.addMessage('bot',
+            'Entschulding, kontrolliere bitte ob der Befehl richtig geschrieben ist, es muss /resetTime <Minutes> sein',
+            'received',
+            'text');
+        }
+      } else {
+        // this.chatService.sendMessage(this.text);
+        this.response = this.http.post<[{
+          text: string
+        }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
+          {sender: this.sender, message: this.text.trim()}).subscribe(data => {
+          // this.addMessage('bot', data[0].text, 'received');
+          console.log(data);
+          data.forEach(value => {
+            for (const dataKey in value) {
+              if (value.hasOwnProperty(dataKey)) {
+                console.log(dataKey);
+                if (dataKey !== 'recipient_id') {
+                  this.addMessage('bot', value[dataKey], 'received', dataKey);
+                  if (dataKey === 'text') {
+                    if (value[dataKey] === 'Tschüss') {
+                      this.reload();
+                    }
                   }
                 }
               }
             }
-          }
+          });
         });
-      });
-      this.text = '';
+        this.text = '';
+      }
     }
   }
   sendMessageButton(text): void {
@@ -104,15 +120,16 @@ export class ChatComponent implements OnInit {
         this.time++;
       }
       this.display = this.transform( this.time);
-      if (this.seconds === 30){
-        this.addMessage('bot', 'Hey, du hast schon seit 30 Sekunden nichts mehr geschrieben, in 30s werde ich unsre Unterhaltung löschen.', 'received', 'text');
+      if (this.secondsPassed === ((this.resetMinutes * 60) / 2)){
+        this.addMessage('bot', 'Hey, du hast schon seit ' + (this.resetMinutes * 60) / 2 + ' Sekunden nichts mehr geschrieben, in 30s werde ich unsre Unterhaltung löschen.', 'received', 'text');
       }
-      if (this.minutes === 1){
+      if (this.minutes === this.resetMinutes){
         this.reload();
       }
     }, 1000);
   }
   transform(value: number): string {
+    this.secondsPassed = value;
     this.minutes = Math.floor(value / 60);
     this.seconds = value - this.minutes * 60;
     return this.minutes + ':' + (value - this.minutes * 60);
@@ -122,6 +139,9 @@ export class ChatComponent implements OnInit {
     if (this.seconds > 30) {
       this.messages = this.messages.slice(0, -1);
     }
+    this.secondsPassed = 0;
+    this.seconds = 0;
+    this.minutes = 0;
     this.time = 0;
   }
 
