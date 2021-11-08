@@ -186,7 +186,7 @@ h1 {
   top: -8px;
   bottom: auto;
   border: 32px solid;
-  border-color:  rgba(188, 17, 39, 1) transparent transparent transparent;
+  border-color:  rgb(188, 17, 39) transparent transparent transparent;
 }
 .tri-right:after{
   content: ' ';
@@ -198,7 +198,7 @@ h1 {
   top: 0px;
   bottom: auto;
   border: 10px solid;
-  border-color:  rgba(188, 17, 39, 1) transparent transparent transparent;
+  border-color:  rgb(188, 17, 39) transparent transparent transparent;
 }
 
 .mine {
@@ -210,7 +210,7 @@ h1 {
 .mine .message {
   margin-right: 10px;
   color: white;
-  background:  rgba(188, 17, 39, 1);
+  background: rgb(188, 17, 39);
   background-attachment: fixed;
   position: relative;
   border-radius: 15px 0 15px 15px;
@@ -224,7 +224,7 @@ h1 {
   right: -8px;
   height: 20px;
   width: 20px;
-  background:  rgba(188, 17, 39, 1);
+  background: rgb(188, 17, 39);
   background-attachment: fixed;
   border-bottom-left-radius: 15px;
 }
@@ -287,6 +287,65 @@ div#input:focus {
   border-radius: 30px;
   padding: 15px;
   margin: auto;
+}
+.medt {
+  background: rgb(61,163,217) !important;
+  background: linear-gradient(169deg, rgb(46,125,168) 0%, rgb(61,163,217) 100%) !important;
+}
+.inf {
+  background: rgb(0,79,159) !important;
+  background: linear-gradient(169deg, rgb(0,41,82) 0%, rgb(0,79,159) 100%) !important;
+}
+
+.ele {
+  background: rgb(204,22,36) !important;
+  background: linear-gradient(169deg, rgb(167,19,32) 0%, rgb(204,22,36) 100%) !important;
+}
+
+.medi {
+  background: rgb(241,136,0) !important;
+  background: linear-gradient(169deg, rgb(203,114,0) 0%, rgb(241,136,0) 100%) !important;
+}
+
+.mine .medt-mess{
+  background: rgb(61,163,217) !important;
+}
+.mine .medt-mess:before{
+  border-color:  rgb(61,163,217) transparent transparent transparent !important;
+}
+
+.mine .medt-mess:after{
+  border-color:  rgb(61,163,217) transparent transparent transparent !important;
+}
+
+.mine .inf-mess {
+  background: rgb(0,79,159) !important;
+}
+
+.mine .inf-mess:before {
+  border-color:  rgb(0,79,159) transparent transparent transparent !important;
+}
+.mine .inf-mess:after {
+  border-color:  rgb(0,79,159) transparent transparent transparent !important;
+}
+
+.mine .ele-mess {
+  background: rgb(204,22,36) !important;
+}
+.mine .ele-mess:before {
+  border-color:  rgb(204,22,36) transparent transparent transparent !important;
+}
+.mine .ele-mess:after {
+  border-color:  rgb(204,22,36) transparent transparent transparent !important;
+}
+.mine .medi-mess{
+  background: rgb(241,136,0) !important;
+}
+.mine .medi-mess:before{
+  border-color:  rgb(241,136,0) transparent transparent transparent !important;
+}
+.mine .medi-mess:after{
+  border-color:  rgb(241,136,0) transparent transparent transparent !important;
 }
 
 #iconName {

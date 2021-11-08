@@ -1,4 +1,9 @@
-<div id="banner">
+<div id="banner" [ngClass]="{
+'medt':branch == 'Medientechnik',
+'inf':branch == 'Informatik',
+'ele':branch == 'Elektronik',
+'medi':branch == 'Medizintechnik'
+}">
   <div id="iconName">
     <img src="assets/leon.png" height="80px">
     <span (click)="reload()" class=reload>↻</span>
@@ -19,7 +24,11 @@
 
   <div *ngFor="let message of messages" [ngClass]="{'mine':message.from == 'me','others':message.from == 'bot'}"
        class="mine messages">
-    <div class="message" [ngSwitch]="message.messageType" [ngClass]="{'tri-right':message.from == 'me','tri-left':message.from == 'bot'}">
+    <div class="message" [ngSwitch]="message.messageType" [ngClass]="{'tri-right':message.from == 'me','tri-left':message.from == 'bot',
+'medt-mess':branch == 'Medientechnik',
+'inf-mess':branch == 'Informatik',
+'ele-mess':branch == 'Elektronik',
+'medi-mess':branch == 'Medizintechnik'}">
       <div *ngSwitchCase="'text'">{{message.text}}</div>
       <img *ngSwitchCase="'image'" src="{{message.text}}" alt="BILD" class="messageImg">
       <div *ngSwitchCase="'button'" (click)="sendMessageButton(message.text)" class="button">{{message.text}}</div>
@@ -27,7 +36,7 @@
   </div>
 </div>
 <div id="chatright">
-  <p>Nach einer Minute Inaktivität wird der Chat zurückgesetzt!</p>
+  <p>Nach einer Minute Inaktivität wird der Chat zurückgesetzt! Zweig: {{branch}}</p>
   <p *ngIf="secondsPassed != 0">{{(resetMinutes * 60) - secondsPassed}}s left</p>
 </div>
 

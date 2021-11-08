@@ -3,11 +3,20 @@ import {ChatService} from '../chatbot-rasa.service';
 import {HttpClient} from '@angular/common/http';
 import {formatNumber, registerLocaleData} from '@angular/common';
 
+enum Branch {
+  Informatik = 'Informatik',
+  Medientechnik = 'Medientechnik',
+  Elektronik = 'Elektronik',
+  Medizintechnik = 'Medizintechnik'
+}
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
+
+
 export class ChatComponent implements OnInit {
   text: any;
   public url = 'http://localhost:5005';
@@ -23,6 +32,7 @@ export class ChatComponent implements OnInit {
   private interval;
   private minutes: number;
   public seconds = 0;
+  public branch: Branch;
   constructor(private http: HttpClient, chatService: ChatService, @Inject(LOCALE_ID) public locale: string) {
     // this.chatService = chatService;
     // this.chatService.connect(this.url);
@@ -65,6 +75,7 @@ export class ChatComponent implements OnInit {
                 console.log(dataKey);
                 if (dataKey !== 'recipient_id') {
                   this.addMessage('bot', value[dataKey], 'received', dataKey);
+                  this.branch = this.analyseBranch(value[dataKey]);
                   if (dataKey === 'text') {
                     if (value[dataKey] === 'Tschüss') {
                       this.reload();
@@ -92,6 +103,7 @@ export class ChatComponent implements OnInit {
             if (value.hasOwnProperty(dataKey)) {
               if (dataKey !== 'recipient_id') {
                 this.addMessage('bot', value[dataKey], 'received', dataKey);
+                this.branch = this.analyseBranch(value[dataKey]);
                 if (dataKey === 'text'){
                   if (value[dataKey] === 'Tschüss'){
                     this.reload();
@@ -149,5 +161,25 @@ export class ChatComponent implements OnInit {
     this.pauseTimer();
     this.messages = [];
     this.sender = 'FE-S-' + Date.now();
+  }
+
+  analyseBranch(text: string): Branch{
+    text = text.toLowerCase();
+    const medt = text.split('medientechnik').length - 1;
+    const inf = text.split('informatik').length - 1;
+    const ele = text.split('elektronik').length - 1;
+    const medi = text.split('medizintechnik').length - 1;
+    if (medt > inf && medt > ele && medt > medi){
+      return Branch.Medientechnik;
+    }else if (inf > medt && inf > ele && inf > medi){
+      return Branch.Informatik;
+    }else if (ele > medt && ele > inf && ele > medi){
+      return Branch.Elektronik;
+    }else if (medi > medt && medi > inf && medi > ele){
+      return Branch.Medizintechnik;
+    }else if (medi === 1 && inf === 1 && ele === 1 && medi === 1){
+      return null;
+    }
+    return this.branch;
   }
 }
