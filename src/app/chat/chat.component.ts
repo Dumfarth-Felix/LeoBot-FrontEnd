@@ -159,6 +159,7 @@ export class ChatComponent implements OnInit {
 
   reload(): void {
     this.pauseTimer();
+    this.branch = null;
     this.messages = [];
     this.sender = 'FE-S-' + Date.now();
   }
