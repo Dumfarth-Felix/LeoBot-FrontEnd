@@ -33,6 +33,8 @@ export class ChatComponent implements OnInit {
   private minutes: number;
   public seconds = 0;
   public branch: Branch;
+  public showBot = false;
+
   constructor(private http: HttpClient, chatService: ChatService, @Inject(LOCALE_ID) public locale: string) {
     // this.chatService = chatService;
     // this.chatService.connect(this.url);
@@ -67,8 +69,6 @@ export class ChatComponent implements OnInit {
           text: string
         }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
           {sender: this.sender, message: this.text.trim()}).subscribe(data => {
-          // this.addMessage('bot', data[0].text, 'received');
-          console.log(data);
           data.forEach(value => {
             for (const dataKey in value) {
               if (value.hasOwnProperty(dataKey)) {
@@ -167,6 +167,7 @@ export class ChatComponent implements OnInit {
   analyseBranch(text: string): Branch{
     text = text.toLowerCase();
     const medt = text.split('medientechnik').length - 1;
+    console.log('Hey' + (text.split('medientechnik').length - 1));
     const inf = text.split('informatik').length - 1;
     const ele = text.split('elektronik').length - 1;
     const medi = text.split('medizintechnik').length - 1;
@@ -178,9 +179,13 @@ export class ChatComponent implements OnInit {
       return Branch.Elektronik;
     }else if (medi > medt && medi > inf && medi > ele){
       return Branch.Medizintechnik;
-    }else if (medi === 1 && inf === 1 && ele === 1 && medi === 1){
+    }else if (medt === 1 && inf === 1 && ele === 1 && medi === 1){
       return null;
     }
     return this.branch;
+  }
+
+  changeBotVisability(): void {
+    this.showBot = !this.showBot;
   }
 }

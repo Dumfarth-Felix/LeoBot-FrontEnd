@@ -9,3 +9,9 @@
   height: 45px;
   margin: 1vh 4vh;
 }
+h1,p{
+  margin: 3%;
+}
+iframe{
+  border: 0;
+}

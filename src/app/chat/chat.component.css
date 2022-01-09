@@ -1,17 +1,30 @@
 @media screen and (max-width:500px) {
+  #chatBot{
+    border: 3px solid darkgrey;
+    border-radius: 30px;
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    height: 80%;
+    background-color: white;
+    overflow: hidden;
+  }
+
+  .closeBot{
+    font-size:35px;
+    color: #c7c7c7;
+    opacity: 0.75;
+    float: right;
+    margin-left: 0;
+    cursor: pointer;
+  }
+
  #banner{
    width: 100% !important;
    border-radius: 0 !important;
 
  }
 
-  #chatleft{
-    width: 0 !important;
-  }
-
-  #chatright{
-    display: none;
-  }
 
   #chat{
     width: 100% !important;
@@ -25,7 +38,34 @@
     height: 30px !important;
   }
 }
-
+@media screen and (min-width:500px){
+  #chatBot{
+    border: 3px solid darkgrey;
+    border-radius: 30px;
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    width: 540px;
+    height: 80%;
+    background-color: white;
+    overflow: hidden;
+  }
+  .closeBot{
+    font-size:35px;
+    color: #c7c7c7;
+    opacity: 0.75;
+    float: right;
+    margin-left: 250px;
+    cursor: pointer;
+  }
+}
+#closed{
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+  z-index: 999;
+  cursor: pointer;
+}
 p {
   font-size: 18px;
   font-family: 'IBM Plex Sans', sans-serif;
@@ -54,17 +94,10 @@ h1 {
   color: #fafafa;
 }
 
-#chatleft{
-  float: left;
-  width: 25%;
+.closeBot:hover{
+  color: #fafafa;
 }
-#chatright{
-  margin-top: 7px;
-  text-align: center;
-  color: #bebebe;
-  float: left;
-  width: 25%;
-}
+
 #chat {
 /*  position: absolute;
   bottom: 50px;
@@ -76,10 +109,10 @@ h1 {
   height: -webkit-calc(100% - 230px);
   overflow-y: scroll;
   margin: auto;
-  width: 50%;
   display: flex;
   flex-direction: column;
   padding: 10px;
+  width: 100%;
   /*  max-height: 100vh;
   height: 65vh; */
 }
@@ -276,15 +309,13 @@ div#input:focus {
   padding-top: 1vh;
   padding-bottom: 1vh;
   margin: auto;
-  width: 50%;
+  width: 90%;
 }
 
 #banner {
   background: rgb(188, 17, 39);
   background: linear-gradient(169deg, rgba(188, 17, 39, 1) 0%, rgba(250, 212, 3, 1) 100%);
-  width: 50%;
   min-height: 80px;
-  border-radius: 30px;
   padding: 15px;
   margin: auto;
 }
