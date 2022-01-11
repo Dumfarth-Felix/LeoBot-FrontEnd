@@ -34,6 +34,7 @@ export class ChatComponent implements OnInit {
   public seconds = 0;
   public branch: Branch;
   public showBot = false;
+  public rate = false;
 
   constructor(private http: HttpClient, chatService: ChatService, @Inject(LOCALE_ID) public locale: string) {
     // this.chatService = chatService;
@@ -52,41 +53,43 @@ export class ChatComponent implements OnInit {
       this.pauseTimer();
       this.startTimer();
       this.addMessage('me', this.text.trim(), 'sent', 'text');
-      if (this.text.startsWith('/resetTime')) {
-        if (Number(this.text.split(' ')[1]) > 0) {
-          this.resetMinutes = Number(formatNumber(this.text.split(' ')[1], this.locale, '1.0-0'));
-          this.addMessage('bot', 'Ich werde mich nun nach genau ' + this.resetMinutes + ' min immer resetten', 'received', 'text');
-          this.text = '';
+      if (this.text.startsWith('/')) {
+        if (this.text.toLowerCase().startsWith('/resettime')) {
+          if (Number(this.text.split(' ')[1]) > 0) {
+            this.resetMinutes = Number(formatNumber(this.text.split(' ')[1], this.locale, '1.0-0'));
+            this.addMessage('bot', 'Ich werde mich nun nach genau ' + this.resetMinutes + ' min immer resetten', 'received', 'text');
+            this.text = '';
+          } else {
+            this.addMessage('bot',
+              'Entschulding, kontrolliere bitte ob der Befehl richtig geschrieben ist, es muss /resetTime <Minutes> sein',
+              'received',
+              'text');
+          }
         } else {
-          this.addMessage('bot',
-            'Entschulding, kontrolliere bitte ob der Befehl richtig geschrieben ist, es muss /resetTime <Minutes> sein',
-            'received',
-            'text');
-        }
-      } else {
-        // this.chatService.sendMessage(this.text);
-        this.response = this.http.post<[{
-          text: string
-        }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
-          {sender: this.sender, message: this.text.trim()}).subscribe(data => {
-          data.forEach(value => {
-            for (const dataKey in value) {
-              if (value.hasOwnProperty(dataKey)) {
-                console.log(dataKey);
-                if (dataKey !== 'recipient_id') {
-                  this.addMessage('bot', value[dataKey], 'received', dataKey);
-                  this.branch = this.analyseBranch(value[dataKey]);
-                  if (dataKey === 'text') {
-                    if (value[dataKey] === 'Tschüss') {
-                      this.reload();
+          // this.chatService.sendMessage(this.text);
+          this.response = this.http.post<[{
+            text: string
+          }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
+            {sender: this.sender, message: this.text.trim()}).subscribe(data => {
+            data.forEach(value => {
+              for (const dataKey in value) {
+                if (value.hasOwnProperty(dataKey)) {
+                  console.log(dataKey);
+                  if (dataKey !== 'recipient_id') {
+                    this.addMessage('bot', value[dataKey], 'received', dataKey);
+                    this.branch = this.analyseBranch(value[dataKey]);
+                    if (dataKey === 'text') {
+                      if (value[dataKey] === 'Tschüss') {
+                        this.reload();
+                      }
                     }
                   }
                 }
               }
-            }
+            });
           });
-        });
-        this.text = '';
+          this.text = '';
+        }
       }
     }
   }
@@ -187,5 +190,9 @@ export class ChatComponent implements OnInit {
 
   changeBotVisability(): void {
     this.showBot = !this.showBot;
+  }
+
+  switchRate(): void {
+    this.rate = !this.rate;
   }
 }

@@ -9,11 +9,14 @@
   <div id="iconName">
     <img src="assets/leon.png" height="80px">
     <span (click)="changeBotVisability()" class=closeBot>×</span>
+    <span (click)="switchRate()" [ngClass]="{'active': rate}" class=rate>★</span>
     <span (click)="reload()" class=reload>↻</span>
     <h1>Leon</h1>
   </div>
 </div>
-<div id="chat"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <app-rating *ngIf="rate" id="rating">
+  </app-rating>
+<div *ngIf="!rate" id="chat"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
   <div class="others messages">
     <div class="message tri-left">
       Hallo😄 <br>Ich bin Leon🤖 <br> Ich kann dir Auskünfte über die HTL geben, z.B.:
@@ -37,6 +40,7 @@
 </div>
 
 <div id="inputDiv">
+  <p id="timer">Ich werde mich nach {{resetMinutes}}min immer resetten</p>
   <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text"
        (keyup.enter)="enter($event)"></div>
   <div id="send" (click)="sendMessage()">

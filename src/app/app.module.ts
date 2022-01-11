@@ -6,12 +6,14 @@ import {ChatComponent} from './chat/chat.component';
 import {FormsModule} from '@angular/forms';
 import {ContentEditableFormDirective} from './content-editable-form.directive';
 import {HttpClientModule} from '@angular/common/http';
+import { RatingComponent } from './rating/rating.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    ContentEditableFormDirective
+    ContentEditableFormDirective,
+    RatingComponent
   ],
   imports: [
     BrowserModule,
