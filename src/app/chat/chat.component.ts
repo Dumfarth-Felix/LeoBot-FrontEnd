@@ -1,5 +1,4 @@
 import {Component, LOCALE_ID, Inject, OnInit} from '@angular/core';
-import {ChatService} from '../chatbot-rasa.service';
 import {HttpClient} from '@angular/common/http';
 import {formatNumber, registerLocaleData} from '@angular/common';
 
@@ -25,7 +24,6 @@ export class ChatComponent implements OnInit {
   public response: any;
   public secondsPassed = 0;
   public sender = 'FE-S-' + Date.now();
-  private chatService: ChatService;
   private time = 0;
   public resetMinutes = 1;
   public display ;
@@ -36,7 +34,7 @@ export class ChatComponent implements OnInit {
   public showBot = false;
   public rate = false;
 
-  constructor(private http: HttpClient, chatService: ChatService, @Inject(LOCALE_ID) public locale: string) {
+  constructor(private http: HttpClient, @Inject(LOCALE_ID) public locale: string) {
     // this.chatService = chatService;
     // this.chatService.connect(this.url);
   }
