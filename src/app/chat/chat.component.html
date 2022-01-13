@@ -39,7 +39,7 @@
   </div>
 </div>
 
-<div id="inputDiv">
+<div id="inputDiv" *ngIf="!rate">
   <p id="timer">Ich werde mich nach {{resetMinutes}}min immer resetten</p>
   <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text"
        (keyup.enter)="enter($event)"></div>

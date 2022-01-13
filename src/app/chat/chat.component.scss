@@ -19,11 +19,11 @@
     cursor: pointer;
   }
 
- #banner{
-   width: 100% !important;
-   border-radius: 0 !important;
+  #banner{
+    width: 100% !important;
+    border-radius: 0 !important;
 
- }
+  }
 
 
   #chat{
@@ -60,7 +60,6 @@
   }
 }
 .active{
-  color: #fff43e !important;
   opacity: 1 !important;
 }
 #timer{
@@ -129,10 +128,10 @@ h1 {
   width: 100%;
 }
 #chat {
-/*  position: absolute;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);*/
+  /*  position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);*/
   float: left;
   box-sizing: border-box;
   height: calc(100% - 190px);
@@ -148,68 +147,68 @@ h1 {
 }
 
 .button{
- font-family: 'IBM Plex Sans', sans-serif;
- border-radius: 15px;
- padding: 8px 15px;
- margin-top: 5px;
- margin-bottom: 5px;
- display: inline-block;
- margin-left: 10px;
- background-color: #e3e3e3;
- position: relative;
- cursor: pointer;
+  font-family: 'IBM Plex Sans', sans-serif;
+  border-radius: 15px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+  margin-left: 10px;
+  background-color: #e3e3e3;
+  position: relative;
+  cursor: pointer;
 }
 .button:hover{
- background-color: #bebebe;
+  background-color: #bebebe;
 }
 
 .messages {
- display: flex;
- flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .message {
- font-family: 'IBM Plex Sans', sans-serif;
- border-radius: 15px;
- padding: 8px 15px;
- margin-top: 5px;
- margin-bottom: 5px;
- display: inline-block;
+  font-family: 'IBM Plex Sans', sans-serif;
+  border-radius: 15px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
 }
 
 .others {
- align-items: flex-start;
+  align-items: flex-start;
 }
 
 .others .message {
- margin-right: 25%;
- margin-left: 10px;
- background-color: #eee;
- position: relative;
+  margin-right: 25%;
+  margin-left: 10px;
+  background-color: #eee;
+  position: relative;
 }
 
 .others .message.last:before {
- content: "";
- position: absolute;
- z-index: 0;
- bottom: 0;
- left: -7px;
- height: 20px;
- width: 20px;
- background: #eee;
- border-bottom-right-radius: 15px;
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: -7px;
+  height: 20px;
+  width: 20px;
+  background: #eee;
+  border-bottom-right-radius: 15px;
 }
 
 .others .message.last:after {
- content: "";
- position: absolute;
- z-index: 1;
- bottom: 0;
- left: -10px;
- width: 10px;
- height: 20px;
- background: white;
- border-bottom-right-radius: 10px;
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: -10px;
+  width: 10px;
+  height: 20px;
+  background: white;
+  border-bottom-right-radius: 10px;
 }
 
 /* Right triangle placed top left flush. */

@@ -12,7 +12,7 @@ enum Branch {
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: ['./chat.component.scss']
 })
 
 
@@ -63,7 +63,8 @@ export class ChatComponent implements OnInit {
               'received',
               'text');
           }
-        } else {
+        }
+      } else {
           // this.chatService.sendMessage(this.text);
           this.response = this.http.post<[{
             text: string
@@ -88,7 +89,6 @@ export class ChatComponent implements OnInit {
           });
           this.text = '';
         }
-      }
     }
   }
   sendMessageButton(text): void {

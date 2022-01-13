@@ -3,9 +3,13 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "chatbot-frontend": {
+    "LeoBotHtlLeonding": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/chatbot-frontend",
+            "outputPath": "dist/LeoBotHtlLeonding",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,7 +28,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss"
             ],
             "scripts": []
           },
@@ -61,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "chatbot-frontend:build",
+            "browserTarget": "LeoBotHtlLeonding:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "chatbot-frontend:build:production"
+              "browserTarget": "LeoBotHtlLeonding:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "chatbot-frontend:build"
+            "browserTarget": "LeoBotHtlLeonding:build"
           }
         },
         "test": {
@@ -87,7 +92,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -109,16 +115,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "chatbot-frontend:serve"
+            "devServerTarget": "LeoBotHtlLeonding:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "chatbot-frontend:serve:production"
+              "devServerTarget": "LeoBotHtlLeonding:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "chatbot-frontend"
+  "defaultProject": "LeoBotHtlLeonding"
 }
