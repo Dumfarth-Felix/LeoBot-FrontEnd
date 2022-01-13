@@ -96,7 +96,7 @@ export class ChatComponent implements OnInit {
   getIPAddress(): void {
     this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
       this.ipAddress = res.ip;
-      this.sender = this.ipAddress + '-' + this.sender;
+      this.sender = this.ipAddress + '+' + this.sender;
     });
   }
 
