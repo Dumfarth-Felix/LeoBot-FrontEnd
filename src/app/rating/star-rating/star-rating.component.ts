@@ -9,12 +9,12 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class StarRatingComponent implements OnInit {
 
   @Input() rating;
-  @Input()  starCount;
-  @Input()  color;
-  @Output()  ratingUpdated = new EventEmitter();
+  @Input() starCount;
+  @Input() color;
+  @Output() ratingUpdated = new EventEmitter();
 
-   snackBarDuration = 2000;
-   ratingArr = [];
+  snackBarDuration = 2000;
+  ratingArr = [];
 
   constructor(private snackBar: MatSnackBar) {
   }
@@ -26,6 +26,7 @@ export class StarRatingComponent implements OnInit {
       this.ratingArr.push(index);
     }
   }
+
   onClick(rating: number): boolean {
     console.log(rating);
     this.snackBar.open('Du hast Leon mit ' + rating + ' / ' + this.starCount + ' Sternen bewertet', '', {
@@ -44,6 +45,7 @@ export class StarRatingComponent implements OnInit {
   }
 
 }
+
 export enum StarRatingColor {
   primary = 'primary',
   accent = 'accent',

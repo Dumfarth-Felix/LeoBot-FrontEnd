@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {StarRatingColor} from './star-rating/star-rating.component';
 
 @Component({
@@ -13,11 +13,13 @@ export class RatingComponent implements OnInit {
   starColor: StarRatingColor = StarRatingColor.warn;
   text = '';
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
-  onRatingChanged(rating): void{
+
+  onRatingChanged(rating): void {
     this.rating = rating;
   }
 
