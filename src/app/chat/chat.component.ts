@@ -26,7 +26,7 @@ export class ChatComponent implements OnInit {
   public sender = 'FE-S-' + Date.now();
   private time = 0;
   public resetMinutes = 1;
-  public display ;
+  public display;
   private interval;
   private minutes: number;
   public seconds = 0;
@@ -65,32 +65,33 @@ export class ChatComponent implements OnInit {
           }
         }
       } else {
-          // this.chatService.sendMessage(this.text);
-          this.response = this.http.post<[{
-            text: string
-          }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
-            {sender: this.sender, message: this.text.trim()}).subscribe(data => {
-            data.forEach(value => {
-              for (const dataKey in value) {
-                if (value.hasOwnProperty(dataKey)) {
-                  console.log(dataKey);
-                  if (dataKey !== 'recipient_id') {
-                    this.addMessage('bot', value[dataKey], 'received', dataKey);
-                    this.branch = this.analyseBranch(value[dataKey]);
-                    if (dataKey === 'text') {
-                      if (value[dataKey] === 'Tschüss') {
-                        this.reload();
-                      }
+        // this.chatService.sendMessage(this.text);
+        this.response = this.http.post<[{
+          text: string
+        }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
+          {sender: this.sender, message: this.text.trim()}).subscribe(data => {
+          data.forEach(value => {
+            for (const dataKey in value) {
+              if (value.hasOwnProperty(dataKey)) {
+                console.log(dataKey);
+                if (dataKey !== 'recipient_id') {
+                  this.addMessage('bot', value[dataKey], 'received', dataKey);
+                  this.branch = this.analyseBranch(value[dataKey]);
+                  if (dataKey === 'text') {
+                    if (value[dataKey] === 'Tschüss') {
+                      this.reload();
                     }
                   }
                 }
               }
-            });
+            }
           });
-          this.text = '';
-        }
+        });
+        this.text = '';
+      }
     }
   }
+
   sendMessageButton(text): void {
     if (text.replace(/\s/g, '').length) {
       this.pauseTimer();
@@ -105,8 +106,8 @@ export class ChatComponent implements OnInit {
               if (dataKey !== 'recipient_id') {
                 this.addMessage('bot', value[dataKey], 'received', dataKey);
                 this.branch = this.analyseBranch(value[dataKey]);
-                if (dataKey === 'text'){
-                  if (value[dataKey] === 'Tschüss'){
+                if (dataKey === 'text') {
+                  if (value[dataKey] === 'Tschüss') {
                     this.reload();
                   }
                 }
@@ -132,21 +133,23 @@ export class ChatComponent implements OnInit {
       } else {
         this.time++;
       }
-      this.display = this.transform( this.time);
-      if (this.secondsPassed === ((this.resetMinutes * 60) / 2)){
+      this.display = this.transform(this.time);
+      if (this.secondsPassed === ((this.resetMinutes * 60) / 2)) {
         this.addMessage('bot', 'Hey, du hast schon seit ' + (this.resetMinutes * 60) / 2 + ' Sekunden nichts mehr geschrieben, in 30s werde ich unsre Unterhaltung löschen.', 'received', 'text');
       }
-      if (this.minutes === this.resetMinutes){
+      if (this.minutes === this.resetMinutes) {
         this.reload();
       }
     }, 1000);
   }
+
   transform(value: number): string {
     this.secondsPassed = value;
     this.minutes = Math.floor(value / 60);
     this.seconds = value - this.minutes * 60;
     return this.minutes + ':' + (value - this.minutes * 60);
   }
+
   pauseTimer(): void {
     clearInterval(this.interval);
     if (this.seconds > 30) {
@@ -165,22 +168,22 @@ export class ChatComponent implements OnInit {
     this.sender = 'FE-S-' + Date.now();
   }
 
-  analyseBranch(text: string): Branch{
+  analyseBranch(text: string): Branch {
     text = text.toLowerCase();
     const medt = text.split('medientechnik').length - 1;
     console.log('Hey' + (text.split('medientechnik').length - 1));
     const inf = text.split('informatik').length - 1;
     const ele = text.split('elektronik').length - 1;
     const medi = text.split('medizintechnik').length - 1;
-    if (medt > inf && medt > ele && medt > medi){
+    if (medt > inf && medt > ele && medt > medi) {
       return Branch.Medientechnik;
-    }else if (inf > medt && inf > ele && inf > medi){
+    } else if (inf > medt && inf > ele && inf > medi) {
       return Branch.Informatik;
-    }else if (ele > medt && ele > inf && ele > medi){
+    } else if (ele > medt && ele > inf && ele > medi) {
       return Branch.Elektronik;
-    }else if (medi > medt && medi > inf && medi > ele){
+    } else if (medi > medt && medi > inf && medi > ele) {
       return Branch.Medizintechnik;
-    }else if (medt === 1 && inf === 1 && ele === 1 && medi === 1){
+    } else if (medt === 1 && inf === 1 && ele === 1 && medi === 1) {
       return null;
     }
     return this.branch;
