@@ -1,5 +1,4 @@
 import {Component, LOCALE_ID, Inject, OnInit} from '@angular/core';
-import {ChatService} from '../chatbot-rasa.service';
 import {HttpClient} from '@angular/common/http';
 import {formatNumber, registerLocaleData} from '@angular/common';
 
@@ -13,7 +12,7 @@ enum Branch {
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.css']
+  styleUrls: ['./chat.component.scss']
 })
 
 
@@ -25,15 +24,17 @@ export class ChatComponent implements OnInit {
   public response: any;
   public secondsPassed = 0;
   public sender = 'FE-S-' + Date.now();
-  private chatService: ChatService;
   private time = 0;
   public resetMinutes = 1;
-  public display ;
+  public display;
   private interval;
   private minutes: number;
   public seconds = 0;
   public branch: Branch;
-  constructor(private http: HttpClient, chatService: ChatService, @Inject(LOCALE_ID) public locale: string) {
+  public showBot = false;
+  public rate = false;
+
+  constructor(private http: HttpClient, @Inject(LOCALE_ID) public locale: string) {
     // this.chatService = chatService;
     // this.chatService.connect(this.url);
   }
@@ -50,16 +51,18 @@ export class ChatComponent implements OnInit {
       this.pauseTimer();
       this.startTimer();
       this.addMessage('me', this.text.trim(), 'sent', 'text');
-      if (this.text.startsWith('/resetTime')) {
-        if (Number(this.text.split(' ')[1]) > 0) {
-          this.resetMinutes = Number(formatNumber(this.text.split(' ')[1], this.locale, '1.0-0'));
-          this.addMessage('bot', 'Ich werde mich nun nach genau ' + this.resetMinutes + ' min immer resetten', 'received', 'text');
-          this.text = '';
-        } else {
-          this.addMessage('bot',
-            'Entschulding, kontrolliere bitte ob der Befehl richtig geschrieben ist, es muss /resetTime <Minutes> sein',
-            'received',
-            'text');
+      if (this.text.startsWith('/')) {
+        if (this.text.toLowerCase().startsWith('/resettime')) {
+          if (Number(this.text.split(' ')[1]) > 0) {
+            this.resetMinutes = Number(formatNumber(this.text.split(' ')[1], this.locale, '1.0-0'));
+            this.addMessage('bot', 'Ich werde mich nun nach genau ' + this.resetMinutes + ' min immer resetten', 'received', 'text');
+            this.text = '';
+          } else {
+            this.addMessage('bot',
+              'Entschulding, kontrolliere bitte ob der Befehl richtig geschrieben ist, es muss /resetTime <Minutes> sein',
+              'received',
+              'text');
+          }
         }
       } else {
         // this.chatService.sendMessage(this.text);
@@ -67,8 +70,6 @@ export class ChatComponent implements OnInit {
           text: string
         }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
           {sender: this.sender, message: this.text.trim()}).subscribe(data => {
-          // this.addMessage('bot', data[0].text, 'received');
-          console.log(data);
           data.forEach(value => {
             for (const dataKey in value) {
               if (value.hasOwnProperty(dataKey)) {
@@ -90,6 +91,7 @@ export class ChatComponent implements OnInit {
       }
     }
   }
+
   sendMessageButton(text): void {
     if (text.replace(/\s/g, '').length) {
       this.pauseTimer();
@@ -104,8 +106,8 @@ export class ChatComponent implements OnInit {
               if (dataKey !== 'recipient_id') {
                 this.addMessage('bot', value[dataKey], 'received', dataKey);
                 this.branch = this.analyseBranch(value[dataKey]);
-                if (dataKey === 'text'){
-                  if (value[dataKey] === 'Tschüss'){
+                if (dataKey === 'text') {
+                  if (value[dataKey] === 'Tschüss') {
                     this.reload();
                   }
                 }
@@ -131,21 +133,23 @@ export class ChatComponent implements OnInit {
       } else {
         this.time++;
       }
-      this.display = this.transform( this.time);
-      if (this.secondsPassed === ((this.resetMinutes * 60) / 2)){
+      this.display = this.transform(this.time);
+      if (this.secondsPassed === ((this.resetMinutes * 60) / 2)) {
         this.addMessage('bot', 'Hey, du hast schon seit ' + (this.resetMinutes * 60) / 2 + ' Sekunden nichts mehr geschrieben, in 30s werde ich unsre Unterhaltung löschen.', 'received', 'text');
       }
-      if (this.minutes === this.resetMinutes){
+      if (this.minutes === this.resetMinutes) {
         this.reload();
       }
     }, 1000);
   }
+
   transform(value: number): string {
     this.secondsPassed = value;
     this.minutes = Math.floor(value / 60);
     this.seconds = value - this.minutes * 60;
     return this.minutes + ':' + (value - this.minutes * 60);
   }
+
   pauseTimer(): void {
     clearInterval(this.interval);
     if (this.seconds > 30) {
@@ -164,23 +168,32 @@ export class ChatComponent implements OnInit {
     this.sender = 'FE-S-' + Date.now();
   }
 
-  analyseBranch(text: string): Branch{
+  analyseBranch(text: string): Branch {
     text = text.toLowerCase();
     const medt = text.split('medientechnik').length - 1;
+    console.log('Hey' + (text.split('medientechnik').length - 1));
     const inf = text.split('informatik').length - 1;
     const ele = text.split('elektronik').length - 1;
     const medi = text.split('medizintechnik').length - 1;
-    if (medt > inf && medt > ele && medt > medi){
+    if (medt > inf && medt > ele && medt > medi) {
       return Branch.Medientechnik;
-    }else if (inf > medt && inf > ele && inf > medi){
+    } else if (inf > medt && inf > ele && inf > medi) {
       return Branch.Informatik;
-    }else if (ele > medt && ele > inf && ele > medi){
+    } else if (ele > medt && ele > inf && ele > medi) {
       return Branch.Elektronik;
-    }else if (medi > medt && medi > inf && medi > ele){
+    } else if (medi > medt && medi > inf && medi > ele) {
       return Branch.Medizintechnik;
-    }else if (medi === 1 && inf === 1 && ele === 1 && medi === 1){
+    } else if (medt === 1 && inf === 1 && ele === 1 && medi === 1) {
       return null;
     }
     return this.branch;
+  }
+
+  changeBotVisability(): void {
+    this.showBot = !this.showBot;
+  }
+
+  switchRate(): void {
+    this.rate = !this.rate;
   }
 }

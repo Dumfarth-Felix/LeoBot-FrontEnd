@@ -1,3 +1,5 @@
+<img *ngIf="!showBot" (click)="changeBotVisability()" src="assets/leon.png" id="closed" width="80px" alt="logo of bot">
+<div *ngIf="showBot" id="chatBot">
 <div id="banner" [ngClass]="{
 'medt':branch == 'Medientechnik',
 'inf':branch == 'Informatik',
@@ -6,17 +8,18 @@
 }">
   <div id="iconName">
     <img src="assets/leon.png" height="80px">
+    <span (click)="changeBotVisability()" class=closeBot>×</span>
+    <span (click)="switchRate()" [ngClass]="{'active': rate}" class=rate>★</span>
     <span (click)="reload()" class=reload>↻</span>
     <h1>Leon</h1>
   </div>
 </div>
-<div id="chatleft">
-  <p></p>
-</div>
-<div id="chat"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <app-rating *ngIf="rate" id="rating">
+  </app-rating>
+<div *ngIf="!rate" id="chat"  #scrollMe [scrollTop]="scrollMe.scrollHeight">
   <div class="others messages">
     <div class="message tri-left">
-      Hallo😄 <br>Ich bin Leon🤖 <br> Ich kann dir Auskünfte über die HTL, z.B.:
+      Hallo😄 <br>Ich bin Leon🤖 <br> Ich kann dir Auskünfte über die HTL geben, z.B.:
     </div>
       <div (click)="sendMessageButton('Was ist die HTL Leonding?')" class="button">Was ist die HTL Leonding?</div>
       <div class="button" (click)="sendMessageButton('Erzähl mir was über Medientechnik?')">Erzähl mir was über Medientechnik</div>
@@ -35,12 +38,9 @@
     </div>
   </div>
 </div>
-<div id="chatright">
-  <p>Nach einer Minute Inaktivität wird der Chat zurückgesetzt!</p>
-  <p *ngIf="secondsPassed != 0">{{(resetMinutes * 60) - secondsPassed}}s left</p>
-</div>
 
-<div id="inputDiv">
+<div id="inputDiv" *ngIf="!rate">
+  <p id="timer">Ich werde mich nach {{resetMinutes}}min immer resetten</p>
   <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text"
        (keyup.enter)="enter($event)"></div>
   <div id="send" (click)="sendMessage()">
@@ -49,4 +49,5 @@
             d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"></path>
     </svg>
   </div>
+</div>
 </div>
