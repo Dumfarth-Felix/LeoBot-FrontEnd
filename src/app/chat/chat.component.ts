@@ -33,6 +33,7 @@ export class ChatComponent implements OnInit {
   public branch: Branch;
   public showBot = false;
   public rate = false;
+  private ipAddress;
 
   constructor(private http: HttpClient, @Inject(LOCALE_ID) public locale: string) {
     // this.chatService = chatService;
@@ -40,6 +41,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getIPAddress();
   }
 
   public addMessage(from, text, type: 'received' | 'sent', messageType): void {
@@ -90,6 +92,12 @@ export class ChatComponent implements OnInit {
         this.text = '';
       }
     }
+  }
+  getIPAddress(): void {
+    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+      this.ipAddress = res.ip;
+      this.sender = this.ipAddress + '-' + this.sender;
+    });
   }
 
   sendMessageButton(text): void {
