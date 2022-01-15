@@ -14,6 +14,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -23,17 +24,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     RatingComponent,
     StarRatingComponent
   ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatTooltipModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatSnackBarModule
-  ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatSnackBarModule,
+        MatInputModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

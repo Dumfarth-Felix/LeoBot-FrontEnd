@@ -14,7 +14,7 @@
       <h1>Leon</h1>
     </div>
   </div>
-  <app-rating *ngIf="rate" id="rating">
+  <app-rating (sendedFeedback)="feedbackSended($event)" *ngIf="rate" id="rating">
   </app-rating>
   <div *ngIf="!rate" id="chat" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div class="others messages">

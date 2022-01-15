@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {StarRatingColor} from './star-rating/star-rating.component';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-rating',
@@ -12,8 +13,11 @@ export class RatingComponent implements OnInit {
   starCount = 5;
   starColor: StarRatingColor = StarRatingColor.warn;
   text = '';
+  name = '';
+  feedback: Feedback;
+  @Output() sendedFeedback = new EventEmitter();
 
-  constructor() {
+  constructor(private readonly httpClient: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -24,6 +28,17 @@ export class RatingComponent implements OnInit {
   }
 
   sendFeedback(): void {
-
+    this.feedback = {
+      name: this.name,
+      rating: this.rating,
+      text: this.text
+    };
+    this.httpClient.post('http://leobot.htl-leonding.ac.at:8080/api/feedback', this.feedback).subscribe();
+    this.sendedFeedback.emit(true);
   }
+}
+export interface Feedback{
+  name: string;
+  rating: number;
+  text: string;
 }

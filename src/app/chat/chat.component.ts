@@ -204,4 +204,8 @@ export class ChatComponent implements OnInit {
   switchRate(): void {
     this.rate = !this.rate;
   }
+
+  feedbackSended(rate): void {
+    this.switchRate();
+  }
 }
