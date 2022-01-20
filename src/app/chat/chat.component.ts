@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit {
   public secondsPassed = 0;
   public sender = 'FE-S-' + Date.now();
   private time = 0;
-  public resetMinutes = 1;
+  public resetMinutes = 2;
   public display;
   private interval;
   private minutes: number;
