@@ -46,6 +46,7 @@ export class ChatComponent implements OnInit {
 
   public addMessage(from, text, type: 'received' | 'sent', messageType): void {
     this.messages.push({from, text, messageType});
+    console.log(this.messages);
   }
 
   sendMessage(): void {
@@ -73,6 +74,7 @@ export class ChatComponent implements OnInit {
         }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
           {sender: this.sender, message: this.text.trim()}).subscribe(data => {
           data.forEach(value => {
+            console.log(value);
             for (const dataKey in value) {
               if (value.hasOwnProperty(dataKey)) {
                 console.log(dataKey);

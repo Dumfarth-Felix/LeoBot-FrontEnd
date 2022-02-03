@@ -29,14 +29,16 @@
 
     <div *ngFor="let message of messages" [ngClass]="{'mine':message.from == 'me','others':message.from == 'bot'}"
          class="mine messages">
-      <div class="message" [ngSwitch]="message.messageType" [ngClass]="{'tri-right':message.from == 'me','tri-left':message.from == 'bot',
+      <div class="message" *ngIf="message.messageType != 'buttons'" [ngSwitch]="message.messageType" [ngClass]="{'tri-right':message.from == 'me','tri-left':message.from == 'bot',
 'medt-mess':branch == 'Medientechnik',
 'inf-mess':branch == 'Informatik',
 'ele-mess':branch == 'Elektronik',
 'medi-mess':branch == 'Medizintechnik'}">
         <div *ngSwitchCase="'text'">{{message.text}}</div>
         <img *ngSwitchCase="'image'" src="{{message.text}}" alt="BILD" class="messageImg">
-        <div *ngSwitchCase="'button'" (click)="sendMessageButton(message.text)" class="button">{{message.text}}</div>
+      </div>
+      <div *ngIf="message.messageType == 'buttons'">
+        <div *ngFor="let txt of message.text" (click)="sendMessageButton(txt.title)" class="button">{{txt.title}}</div>
       </div>
     </div>
   </div>
