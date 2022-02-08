@@ -37,7 +37,7 @@
         <div *ngSwitchCase="'text'">{{message.text}}</div>
         <img *ngSwitchCase="'image'" src="{{message.text}}" alt="BILD" class="messageImg">
       </div>
-      <div *ngIf="message.messageType == 'buttons'">
+      <div *ngIf="message.messageType == 'buttons'" class="buttons">
         <div *ngFor="let txt of message.text" (click)="sendMessageButton(txt.title)" class="button">{{txt.title}}</div>
       </div>
     </div>
