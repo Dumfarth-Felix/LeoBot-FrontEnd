@@ -104,14 +104,14 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  sendMessageButton(text): void {
+  sendMessageButton(text, payload): void {
     if (text.replace(/\s/g, '').length) {
       this.pauseTimer();
       this.startTimer();
       this.addMessage('me', text.trim(), 'sent', 'text');
       // this.chatService.sendMessage(this.text);
       this.response = this.http.post<any>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
-        {sender: this.sender, message: text.trim()}).subscribe(data => {
+        {sender: this.sender, message: payload.trim()}).subscribe(data => {
         data.forEach(value => {
           for (const dataKey in value) {
             if (value.hasOwnProperty(dataKey)) {
@@ -181,7 +181,7 @@ export class ChatComponent implements OnInit {
   }
 
   analyseBranch(text: string): Branch {
-    text = text.toLowerCase();
+    /*text = text.toLowerCase();
     const medt = text.split('medientechnik').length - 1;
     console.log('Hey' + (text.split('medientechnik').length - 1));
     const inf = text.split('informatik').length - 1;
@@ -198,7 +198,8 @@ export class ChatComponent implements OnInit {
     } else if (medt === 1 && inf === 1 && ele === 1 && medi === 1) {
       return null;
     }
-    return this.branch;
+    return this.branch;*/
+    return null
   }
 
   changeBotVisability(): void {

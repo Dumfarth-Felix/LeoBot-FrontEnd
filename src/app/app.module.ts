@@ -14,7 +14,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatInputModule} from "@angular/material/input";
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
