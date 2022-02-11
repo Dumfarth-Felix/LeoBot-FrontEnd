@@ -21,8 +21,12 @@
       <div class="message tri-left">
         Hallo😄 <br>Ich bin Leon🤖 <br> Ich kann dir Auskünfte über die HTL geben, z.B.:
       </div>
-      <div (click)="sendMessageButton('Was ist die HTL Leonding?','Was ist die HTL Leonding?')" class="button">Was ist die HTL Leonding?</div>
-      <div class="button" (click)="sendMessageButton('Erzähl mir was über Medientechnik?','Erzähl mir was über Medientechnik?')">Erzähl mir was über
+      <div (click)="sendMessageButton('Was ist die HTL Leonding?','Was ist die HTL Leonding?')" class="button">Was ist
+        die HTL Leonding?
+      </div>
+      <div class="button"
+           (click)="sendMessageButton('Erzähl mir was über Medientechnik?','Erzähl mir was über Medientechnik?')">Erzähl
+        mir was über
         Medientechnik
       </div>
     </div>
@@ -38,7 +42,8 @@
         <img *ngSwitchCase="'image'" src="{{message.text}}" alt="BILD" class="messageImg">
       </div>
       <div *ngIf="message.messageType == 'buttons'" class="buttons">
-        <div *ngFor="let txt of message.text" (click)="sendMessageButton(txt.title,txt.payload)" class="button">{{txt.title}}</div>
+        <div *ngFor="let txt of message.text" (click)="sendMessageButton(txt.title,txt.payload)"
+             class="button">{{txt.title}}</div>
       </div>
     </div>
   </div>
