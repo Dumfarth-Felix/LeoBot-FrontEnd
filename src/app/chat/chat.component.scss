@@ -487,6 +487,6 @@ div#input:focus {
 // I hate firefox
 @-moz-document url-prefix() {
   h1{
-    font-size: 43px !important;
+    font-size: 250% !important;
   }
 }
