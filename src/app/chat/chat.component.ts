@@ -80,8 +80,11 @@ export class ChatComponent implements OnInit {
               if (value.hasOwnProperty(dataKey)) {
                 console.log(dataKey);
                 if (dataKey !== 'recipient_id') {
-                  this.addMessage('bot', value[dataKey], 'received', dataKey);
-                  this.branch = this.analyseBranch(value[dataKey]);
+                  if (typeof value[dataKey] === 'object'){
+                      this.branch = this.analyseBranch(value[dataKey].branch);
+                  }else {
+                    this.addMessage('bot', value[dataKey], 'received', dataKey);
+                  }
                   if (dataKey === 'text') {
                     if (value[dataKey] === 'Tschüss') {
                       this.reload();
@@ -199,7 +202,23 @@ export class ChatComponent implements OnInit {
       return null;
     }
     return this.branch;*/
-    return null
+    switch (text){
+      case 'medientechnik': {
+        return Branch.Medientechnik;
+      }
+      case 'informatik': {
+        return Branch.Informatik;
+      }
+      case 'elektronik': {
+        return Branch.Elektronik;
+      }
+      case 'medizintechnik': {
+        return Branch.Medizintechnik;
+      }
+      default: {
+        return null;
+      }
+    }
   }
 
   changeBotVisability(): void {
