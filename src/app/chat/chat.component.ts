@@ -1,4 +1,4 @@
-import {Component, LOCALE_ID, Inject, OnInit} from '@angular/core';
+import {Component, LOCALE_ID, Inject, OnInit, ViewEncapsulation} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {formatNumber, registerLocaleData} from '@angular/common';
 
@@ -12,7 +12,8 @@ enum Branch {
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 
 

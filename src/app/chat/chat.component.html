@@ -30,7 +30,6 @@
         Medientechnik
       </div>
     </div>
-
     <div *ngFor="let message of messages" [ngClass]="{'mine':message.from == 'me','others':message.from == 'bot'}"
          class="mine messages">
       <div class="message" *ngIf="message.messageType != 'buttons'" [ngSwitch]="message.messageType" [ngClass]="{'tri-right':message.from == 'me','tri-left':message.from == 'bot',
@@ -49,7 +48,7 @@
   </div>
 
   <div id="inputDiv" *ngIf="!rate">
-    <p id="timer">Ich werde mich nach {{resetMinutes}}min immer resetten</p>
+    <p id="timer">Ich werde mich nach {{resetMinutes}}min immer resetten<span *ngIf="secondsPassed != 0">, {{(resetMinutes * 60) - secondsPassed}}s verbleibend</span> </p>
     <div contenteditable="true" autofocus spellcheck="true" id="input" [(ngModel)]="text"
          (keyup.enter)="enter($event)"></div>
     <div id="send" (click)="sendMessage()">

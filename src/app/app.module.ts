@@ -15,6 +15,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatInputModule} from '@angular/material/input';
+import { Injector} from '@angular/core';
+import { createCustomElement } from '@angular/elements';
 
 @NgModule({
   declarations: [
@@ -40,4 +42,14 @@ import {MatInputModule} from '@angular/material/input';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(private injector: Injector){
+    const ele1 = createCustomElement(ChatComponent, { injector: this.injector });
+    customElements.define('app-chat', ele1);
+
+    const ele2 = createCustomElement(RatingComponent, { injector: this.injector });
+    customElements.define('app-rating', ele2);
+
+    const ele3 = createCustomElement(StarRatingComponent, { injector: this.injector });
+    customElements.define('app-star-rating', ele3);
+  }
 }

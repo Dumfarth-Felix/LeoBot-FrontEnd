@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import {StarRatingColor} from './star-rating/star-rating.component';
 import {HttpClient} from '@angular/common/http';
 
