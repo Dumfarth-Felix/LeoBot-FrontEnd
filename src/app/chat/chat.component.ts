@@ -80,8 +80,8 @@ export class ChatComponent implements OnInit {
               if (value.hasOwnProperty(dataKey)) {
                 console.log(dataKey);
                 if (dataKey !== 'recipient_id') {
-                  if (typeof value[dataKey] === 'object'){
-                      this.branch = this.analyseBranch(value[dataKey].branch);
+                  if (typeof value[dataKey] === 'object' && dataKey !== 'buttons'){
+                    this.branch = this.analyseBranch(value[dataKey].branch);
                   }else {
                     this.addMessage('bot', value[dataKey], 'received', dataKey);
                   }
@@ -119,7 +119,7 @@ export class ChatComponent implements OnInit {
           for (const dataKey in value) {
             if (value.hasOwnProperty(dataKey)) {
               if (dataKey !== 'recipient_id') {
-                if (typeof value[dataKey] === 'object'){
+                if (typeof value[dataKey] === 'object' && dataKey !== 'buttons'){
                   this.branch = this.analyseBranch(value[dataKey].branch);
                 }else {
                   this.addMessage('bot', value[dataKey], 'received', dataKey);
