@@ -8,9 +8,9 @@
 }">
     <div id="iconName">
       <img src="assets/leon.png" height="80px">
-      <span (click)="changeBotVisability()" class=closeBot>×</span>
-      <span (click)="switchRate()" [ngClass]="{'active': rate}" class=rate>★</span>
-      <span (click)="reload()" class=reload>↻</span>
+      <span (click)="changeBotVisability()" matTooltip="Chatfenster schließen" class=closeBot>×</span>
+      <span (click)="switchRate()" [ngClass]="{'active': rate}" class=rate matTooltip="Leon eine bewertung geben">★</span>
+      <span (click)="reload()" class=reload matTooltip="Chat neu laden">↻</span>
       <h1>Leon</h1>
     </div>
   </div>
