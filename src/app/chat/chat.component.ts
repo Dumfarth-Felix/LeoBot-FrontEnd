@@ -73,7 +73,7 @@ export class ChatComponent implements OnInit {
         // this.chatService.sendMessage(this.text);
         this.response = this.http.post<[{
           text: string
-        }, { image: string }]>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
+        }, { image: string }]>('http://vm07.htl-leonding.ac.at:4200/core/webhooks/rest/webhook',
           {sender: this.sender, message: this.text.trim()}).subscribe(data => {
           data.forEach(value => {
             console.log(value);
@@ -102,7 +102,7 @@ export class ChatComponent implements OnInit {
   }
 
   getIPAddress(): void {
-    this.http.get('http://api.ipify.org/?format=json').subscribe((res: any) => {
+    this.http.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
       this.ipAddress = res.ip;
       this.sender = this.ipAddress + '+' + this.sender;
     });
@@ -114,7 +114,7 @@ export class ChatComponent implements OnInit {
       this.startTimer();
       this.addMessage('me', text.trim(), 'sent', 'text');
       // this.chatService.sendMessage(this.text);
-      this.response = this.http.post<any>('http://vm07.htl-leonding.ac.at/core/webhooks/rest/webhook',
+      this.response = this.http.post<any>('http://vm07.htl-leonding.ac.at:4200/core/webhooks/rest/webhook',
         {sender: this.sender, message: payload.trim()}).subscribe(data => {
         data.forEach(value => {
           for (const dataKey in value) {
