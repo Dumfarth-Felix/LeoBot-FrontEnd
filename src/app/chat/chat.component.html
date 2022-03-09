@@ -1,4 +1,4 @@
-<img *ngIf="!showBot" (click)="changeBotVisability()" src="https://dorfingerjonas.com/dumfarthfelix/leon/assets/leon.png" id="closed" width="80px" alt="logo of bot">
+<img *ngIf="!showBot" (click)="changeBotVisability()" src="assets/Leonie.png" class="round" id="closed" width="90px" alt="logo of bot">
 <div *ngIf="showBot" id="chatBot">
   <div id="banner" [ngClass]="{
 'medt':branch == 'Medientechnik',
@@ -7,11 +7,11 @@
 'medi':branch == 'Medizintechnik'
 }">
     <div id="iconName">
-      <img src="https://dorfingerjonas.com/dumfarthfelix/leon/assets/leon.png" height="80px">
+      <img src="assets/Leonie.png" class="round" height="90px" id="logoBot">
       <span (click)="changeBotVisability()" matTooltip="Chatfenster schließen" class=closeBot>×</span>
       <span (click)="switchRate()" [ngClass]="{'active': rate}" class=rate matTooltip="Leon eine bewertung geben">★</span>
       <span (click)="reload()" class=reload matTooltip="Chat neu laden">↻</span>
-      <h1>Leon</h1>
+      <h1>Leonie</h1>
     </div>
   </div>
   <app-rating (sendedFeedback)="feedbackSended($event)" *ngIf="rate" id="rating">
@@ -19,7 +19,7 @@
   <div *ngIf="!rate" id="chat" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div class="others messages">
       <div class="message tri-left">
-        Hallo😄 <br>Ich bin Leon🤖 <br> Ich kann dir Auskünfte über die HTL geben, z.B.:
+        Hallo😄 <br>Ich bin Leonie🤖 <br> Ich kann dir Auskünfte über die HTL geben, z.B.:
       </div>
       <div (click)="sendMessageButton('Was ist die HTL Leonding?','Was ist die HTL Leonding?')" class="button">Was ist
         die HTL Leonding?
