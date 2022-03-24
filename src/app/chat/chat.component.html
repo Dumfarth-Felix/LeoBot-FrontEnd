@@ -1,4 +1,4 @@
-<img *ngIf="!showBot" (click)="changeBotVisability()" src="assets/Leonie.png" class="round" id="closed" width="90px" alt="logo of bot">
+<img *ngIf="!showBot" (click)="changeBotVisability()" src="https://dorfingerjonas.com/dumfarthfelix/leon/assets/Leonie.png" class="round" id="closed" width="90px" alt="logo of bot">
 <div *ngIf="showBot" id="chatBot">
   <div id="banner" [ngClass]="{
 'medt':branch == 'Medientechnik',
@@ -7,9 +7,9 @@
 'medi':branch == 'Medizintechnik'
 }">
     <div id="iconName">
-      <img src="assets/Leonie.png" class="round" height="90px" id="logoBot">
+      <img src="https://dorfingerjonas.com/dumfarthfelix/leon/assets/Leonie.png" class="round" height="90px" id="logoBot">
       <span (click)="changeBotVisability()" matTooltip="Chatfenster schließen" class=closeBot>×</span>
-      <span (click)="switchRate()" [ngClass]="{'active': rate}" class=rate matTooltip="Leon eine bewertung geben">★</span>
+<!--      <span (click)="switchRate()" [ngClass]="{'active': rate}" class=rate matTooltip="Leon eine bewertung geben">★</span>-->
       <span (click)="reload()" class=reload matTooltip="Chat neu laden">↻</span>
       <h1>Leonie</h1>
     </div>
